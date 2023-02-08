@@ -1,9 +1,11 @@
-import {useRef} from 'react';
+import {useRef, useContext} from 'react';
+import { TodosContext } from '../store/todos-context';
 import classes from  './NewTodo.module.css';
 
 /* or instead of React.FC we can define a separate type, as we do it in Todos.tsx */
 
-const NewTodo: React.FC<{onAddToDo: (text: string) => void}> = (props) => {
+const NewTodo = () => {
+    const todosCtx = useContext(TodosContext);
     const todoTextInputRef = useRef<HTMLInputElement>(null);
 
     /* if we would have and event in form, for example onClick, than
@@ -30,7 +32,7 @@ const NewTodo: React.FC<{onAddToDo: (text: string) => void}> = (props) => {
             return;
         }
 
-        props.onAddToDo(enteredText);
+       todosCtx.addTodo(enteredText);
     };
 
     return (
